@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Pomodoro App </title>
+        <link rel="stylesheet" href="style.css" />
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="script.js" defer></script>
+    </head>
+    <body>
+
+        <div class="dropdown">
+            <h3 class="dropbtn" style="font-family:Lobster;margin-left:10px;display:inline;"><strong>Stats</strong></h3>
+        
+            <div class="dropdown-content" style="font-family:monospace;font-size:1.2rem;">
+                <h6 class="nav-text-all" style="font-family:monospace;font-size:1.2rem;"><strong>All</strong></h6>
+                <div class="display-all-items" id="all-items"></div>
+                <h6 class="nav-text-active" style="font-family:monospace;font-size:1.2rem;"><strong>Active</strong></h6>
+                <div class="display-active-items" id="active-items"></div>
+                <h6 class="nav-text-completed" style="font-family:monospace;font-size:1.2rem;"><strong>Completed</strong></h6>
+                <div class="display-completed-items" id="completed-items"></div>
+            </div>
+            
+        </div>
+
+        <h1 style="font-family:monospace;display:inline;margin-left:38.5%;"><strong>Pomodoro</strong></h1>
+        
+
+        
+        <div class="body-style">
+        <!--
+        <audio controls id="music">
+        <source src="clockTick.wav" type="audio/mpeg">
+        </audio>
+        -->
+        <audio controls id="break-music">
+        <source src="alarm.wav" type="audio/mpeg">
+        </audio>
+        <h2 id="add-task" style="font-family:monospace;"><strong>Add Task</strong></h2>
+        <div class="title-text">
+            <input type="text" id="inputTask" placeholder="Task" maxlength="30"></input>
+            <h2 id="task" style="font-family:monospace;">Complete scrum tasks</h2>
+            <h3 id="title" style="font-family:monospace;">gaga</h3>
+        </div>
+        <div class="duration-text" id="duration-text-container">
+            <label for="duration">Duration</label>
+            <span>
+                <select id="hours-session">
+                    <script language="javascript" type="text/javascript">
+                        for(let i = 0; i < 24; i++) {
+                            document.write(`<option>${i}</option>`);
+                        }
+                    </script>
+                </select>
+                <select id="mins-session">
+                    <script language="javascript" type="text/javascript">
+                        for(let i = 0; i < 60; i++) {
+                            document.write(`<option>${i}</option>`);
+                        }
+                    </script>
+                </select>
+                <select id="secs-session">
+                    <script language="javascript" type="text/javascript">
+                        for(let i = 0; i < 60; i++) {
+                            document.write(`<option>${i}</option>`);
+                        }
+                    </script>
+                </select>
+            </span>
+        </div>
+        <div class="break-text" id="break-text-container">
+            <label for="break">Break</lablel>
+            <span>
+                <select id="mins-break">
+                    <script language="javascript" type="text/javascript">
+                        for(let i = 0; i < 60; i++) {
+                            document.write(`<option>${i}</option>`);
+                        }
+                    </script>
+                </select>
+                <select id="secs-break">
+                    <script language="javascript" type="text/javascript">
+                        for(let i = 0; i < 60; i++) {
+                            document.write(`<option>${i}</option>`);
+                        }
+                    </script>
+                </select>
+            </span>
+        </div>
+        <div class="cycle-text" id="cycle-text-container">
+            <label for="cycle">Cycle</label>
+            <span>
+                <select id="cycle">
+                    <script language="javascript" type="text/javascript">
+                        for(let i = 1; i < 10; i++) {
+                            document.write(`<option>${i}</option>`);
+                        }
+                    </script>
+                </select>
+            </span>
+        </div>
+        <div class="submit-button" id="submit-button-container">
+            <button id="submit">Start Pomodoro</button>
+        </div>
+        <div class="countdown-container" id="cnt-dn-container">
+            <div class="countdown-el hours-c">
+                <p class="big-text" id="hours">0</p>
+                <span>hours</span>
+            </div>
+            <div class="countdown-el mins-c">
+                <p class="big-text" id="mins">0</p>
+                <span>mins</span>
+            </div>
+            <div class="countdown-el secs-c">
+                <p class="big-text" id="secs">0</p>
+                <span>secs</span>
+            </div>
+        </div>
+        <div class="button-container" id="btn-container">
+            <button id="reset" class="fa fa-refresh" style="font-size:48px;"></button><br>
+            <button id="pause"></button>
+            <button id="play"></button>
+        </div>
+        <h4 style="font-family:Lobster;margin:30px;"><strong>Keep it short, keep it simple.</strong></h4>
+    </body>
+</html>  
