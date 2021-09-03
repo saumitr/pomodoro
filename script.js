@@ -7,7 +7,7 @@ const submit = document.getElementById('submit');
 const cdn = document.getElementById('cnt-dn-container');
 const btn = document.getElementById('btn-container');
 const task = document.getElementById('task');
-//const mySessionMusic = document.getElementById('music');
+const mySessionMusic = document.getElementById('music');
 const myBreakMusic = document.getElementById('break-music');
 const all_items = document.getElementById('all-items');
 const active_items = document.getElementById('active-items');
@@ -33,6 +33,15 @@ title.style.display = 'none';
 let sessionTimer = 0;
 let breakTimer = 0;
 let breakMusicTimer = -1;
+
+let speech = new SpeechSynthesisUtterance();
+speech.lang = "en";
+speech.text = "Session started";
+voices = speechSynthesis.getVoices();
+
+
+speech.voice = voices[0];
+
 function countdown(secns_t) {
     
     const seconds = secns_t;
@@ -69,8 +78,10 @@ let left_items_list = [];
 let isPaused = false;
 let isReset = false;
 let isLeftInBetween = false;
+//let isCompleted = false;
 function startPomodoro(taskvalue) {
 var session_interval = setInterval(function() {
+    
     if(isReset) {
         clearInterval(session_interval);
     }
@@ -89,21 +100,44 @@ var session_interval = setInterval(function() {
             flag = 1;
             currentTimer = breakTimer;
             //mySessionMusic.pause();
-            myBreakMusic.play();
+            //myBreakMusic.play();
+            
             breakMusicTimer=1;
             title.innerText = 'Break';
+            speech.text = "Break started"
+            speechSynthesis.speak(speech);
             countdown(currentTimer);
         }
         else {
             //console.log("flag setting to 0");
+            cycles = cycles-1;
+            flag = 0;
+            if(cycles===0) {
+                console.log(`${taskvalue} ended`);
+                title.innerText = 'Completed';
+                speech.text = "Task completed";
+                speechSynthesis.speak(speech);
+                //isCompleted = true;
+                countdown(0);
+                //mySessionMusic.pause();
+                completed_items_list.push(taskvalue);
+                active_items_list = arrayRemove(active_items_list, taskvalue);
+                showActiveItems();
+                showCompletedItems();
+                clearInterval(session_interval);
+            }
+            else {
             flag = 0;
             currentTimer = sessionTimer;
-            myBreakMusic.pause();
+            //myBreakMusic.pause();
             //mySessionMusic.play();
             breakMusicTimer = 0;
             title.innerText = 'Session';
+            speech.text = "Session started"
+            speechSynthesis.speak(speech);
             countdown(currentTimer);
-            cycles--;
+            }
+            
         }
     }
     /*
@@ -118,24 +152,11 @@ var session_interval = setInterval(function() {
         
     }
     */
-    else if(cycles===0) {
-        console.log(`${taskvalue} ended`);
-        title.innerText = 'Completed';
-        countdown(0);
-        //mySessionMusic.pause();
-        completed_items_list.push(taskvalue);
-        active_items_list = arrayRemove(active_items_list, taskvalue);
-        showActiveItems();
-        showCompletedItems();
-        clearInterval(session_interval);
-    }
+    
     
     
     //console.log(currentTimer, flag);
-    currentTimer--;} else {
-        //mySessionMusic.pause();
-        myBreakMusic.pause();
-    }
+    currentTimer--;} 
 }, 1000);
 }
 
@@ -183,6 +204,7 @@ function showLeftItems() {
 }
 
 submit.addEventListener('click', () => {
+    //mySessionMusic.style.display = 'flex';
     isPaused = false;
     isReset = false;
     title.innerText = 'Session';
@@ -229,6 +251,8 @@ submit.addEventListener('click', () => {
     //session_value.value = '';
     //cycle_value.value = '';
     //break_value.value = '';
+    speech.text = "Session started"
+    speechSynthesis.speak(speech);
     startPomodoro(input_task.value);
     //showCompletedItems();
     //completed_items_list.push(input_task.value);
@@ -238,6 +262,7 @@ submit.addEventListener('click', () => {
 
 reset.addEventListener('click', () => {
     //mySessionMusic.pause();
+    //mySessionMusic.style.display = 'none';
     myBreakMusic.pause();
     isPaused = true;
     isReset = true;
@@ -292,7 +317,9 @@ play.addEventListener('click', () => {
     play.style.display = 'none';
     pause.style.display = 'flex';
     if(flag===1) {
-        myBreakMusic.play();
+        //myBreakMusic.play();
+        speech.text = "Break started"
+        speechSynthesis.speak(speech);
     }
     else {
         //mySessionMusic.play();
