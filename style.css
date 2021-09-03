@@ -5,10 +5,14 @@
     box-sizing: border-box;
 }
 
+html {
+    overflow-y: hidden;
+}
+
 .body-style {
     margin-left: 25%;
     height: 100%;
-    background-image: url("pomodoro.jpg");
+    background-image: linear-gradient(#45A29E, #66FCF1, #C5C6C7);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
